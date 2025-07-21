@@ -26,7 +26,12 @@ export class CoursesController {
 
   @HttpCode(HttpStatus.BAD_GATEWAY)
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return `Remover o curso com ID ${id}`;
+  remove(@Param("id") id: number) {
+    try {
+      this.coursesService.remove(id);
+      return { message: `Curso com ID ${id} removido com sucesso` };
+    } catch (error) {
+      return { message: error.message };
+    }
   }
 }
